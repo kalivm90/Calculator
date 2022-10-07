@@ -1,0 +1,105 @@
+/* TODO */
+* {
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0;
+}
+
+body,
+.calculator,
+.main, 
+.clr-dlt {
+    display: flex;
+    align-items: center;
+}
+
+body {
+    justify-content: center;
+    background-color: #eee;
+    min-height: 100vh;
+}
+
+.calculator {
+    justify-content: space-around;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 250px;
+    height: 350px;
+    border-radius: 10px;
+    background-color: #aaa;
+}
+
+/* MAIN SECTION OF CALCULATOR MADE UP OF SCREEN AND MAIN*/
+.screen,
+.clr-dlt,
+.button-container {
+    width: 90%;
+}
+
+.screen {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: auto 0;
+    height: 20%;
+    background-color: rgb(242, 242, 242);
+    border-radius: 3px;
+}
+
+.screen div {
+    height: 100%;
+    margin-right: 10px;
+}
+
+.screen .top {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.screen .bottom {
+    font-size: 20px;
+}
+
+.main {
+    flex-direction: column;
+    width: 100%;
+    height: 75%;
+    background-color: #aaa;
+    border-radius: 10px;
+}
+
+/* CLEAR AND DELETE BUTTONS */
+
+.clr-dlt {
+    justify-content: space-between;
+    margin-bottom: 8px;    
+    height: 12%;
+    background-color: #aaa;
+}
+
+.clr-dlt button {
+    width: 110px;
+    height: 100%;
+}
+
+/* BUTTONS */
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 85%;
+    margin-bottom: 10px;
+}
+
+.button-container button {
+    width: 50px;
+    height: 50px;
+}
+
+.setButton {
+    width: 50px;
+    height: 50px;
+}

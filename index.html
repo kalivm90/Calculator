@@ -5,47 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/styles/styles.css">
+    <!--Icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="./assets/scripts/script.js"></script> 
     <title>Calculator</title>
 </head>
 <body>
-    <div class="calculator">
 
+    <div class="calculator">
         <div class="screen">
-            <div class="top">
-                <p></p>
+            <div class="top-wrapper">
+                <p class="top-value"></p>
             </div>
-            <div class="bottom">
-                <p>330</p>
+            <div class="bottom-wrapper">
+                <p class="bottom-value">0</p>
             </div>
         </div>
-
         <div class="main">
-
             <div class="clr-dlt">
-                    <button type="submit">Clear</button>
-                    <button type="submit">Delete</button>
+                <button class="clear" type="submit">Clear</button>
+                <button class="delete" type="submit">Delete</button>
             </div>
-
-            <div class="button-container">
-                <!-- <button class="button">7</button>
-                <button class="button">8</button>
-                <button class="button">9</button>
-                <button class="button">/</button>
-                <button class="button">4</button>
-                <button class="button">5</button>
-                <button class="button">6</button>
-                <button class="button">x</button>
-                <button class="button">1</button>
-                <button class="button">2</button>
-                <button class="button">3</button>
-                <button class="button">-</button>
-                <button class="button">.</button>
-                <button class="button">0</button>
-                <button class="button">=</button>
-                <button class="button">+</button> -->
-            </div>
+            <div class="button-container"></div>
         </div>
     </div>
+
+    <footer>
+        <p>kalivm90 
+            <i class="fa fa-github" id="footer-link" style="font-size:14px" href="https://github.com"></i>
+        </p>
+    </footer>
+
 </body>
 </html>

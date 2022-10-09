@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // FOOTER
     let footerIcon = document.querySelector("#footer-link")
 
-
+    // Events
     buttons.forEach(but => but.onclick = e => updateCalc(but.textContent))
     clr.onclick = e => clear(e);
     dlt.onclick = e => del(e);
@@ -28,6 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "x" : (a, b) => a * b,
         "-" : (a, b) => a - b
     };
+
+    let fNum = ""
+    let sNum = ""
+    let currentOp = ""
+    let canDel = true;
 
     function setAttributes(elem, obj) {
         for (item in obj) {
@@ -44,49 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         return document.querySelectorAll(".numButton")
     }  
-
-    function clear(e) {
-        // resets all variables and updates both displays
-        fNum = sNum = currentOp = "";
-        canDel = true;
-        // setValue breaks the calculator if used here, and I am not sure why. So in the meantime I am setting them manually
-        topValue.textContent = ""
-        bottomValue.textContent = "0"
-    }
-
-    function del(e) {
-        // if no numbers are selected and operator is pressed or the answer is currently displayed on the screen
-        if (bottomValue.textContent === "0" && fNum === "" || !canDel) {
-            e.target.textContent = "Enter Number"
-            setTimeout(() => e.target.textContent = "Delete", 900)
-            return 
-        } else if (sNum === "") {
-            fNum = fNum.slice(0, -1)
-            bottomValue.textContent = fNum
-        } else if (fNum != "" && currentOp != "" && sNum === ""){
-            return
-        } else {
-            sNum = sNum.slice(0, -1)
-            bottomValue.textContent = sNum
-        } 
-    }
-    
-    // exper
-    function setValue(name) {
-        let str = ""
-        const args = Array.from(arguments).slice(1, arguments.length)
-        let makeStr = args.forEach(i => str += `${i} `)
-        return name.textContent = str
-    }
-    
-    function operate(operator, first, second) {
-        return String(calc[operator](Number(first), Number(second)))
-    }
-
-    let fNum = ""
-    let sNum = ""
-    let currentOp = ""
-    let canDel = true;
 
     function updateCalc(e) {
         // tries to find if e is in list of operations
@@ -132,4 +94,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function setValue(name) {
+        let str = ""
+        const args = Array.from(arguments).slice(1, arguments.length)
+        let makeStr = args.forEach(i => str += `${i} `)
+        return name.textContent = str
+    }
+    
+    function operate(operator, first, second) {
+        return String(calc[operator](Number(first), Number(second)).toFixed(13))
+    }
+
+    function clear(e) {
+        // resets all variables and updates both displays
+        fNum = sNum = currentOp = "";
+        canDel = true;
+        // setValue breaks the calculator if used here, and I am not sure why. So in the meantime I am setting them manually
+        topValue.textContent = ""
+        bottomValue.textContent = "0"
+    }
+
+    function del(e) {
+        // if no numbers are selected and operator is pressed or the answer is currently displayed on the screen
+        if (bottomValue.textContent === "0" && fNum === "" || !canDel) {
+            e.target.textContent = "Enter Number"
+            setTimeout(() => e.target.textContent = "Delete", 900)
+            return 
+        } else if (sNum === "") {
+            fNum = fNum.slice(0, -1)
+            bottomValue.textContent = fNum
+        } else if (fNum != "" && currentOp != "" && sNum === ""){
+            return
+        } else {
+            sNum = sNum.slice(0, -1)
+            bottomValue.textContent = sNum
+        } 
+    }
 })

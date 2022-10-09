@@ -20,6 +20,7 @@ body {
     min-height: 100vh;
 }
 
+/* CALCULATOR DIV */
 .calculator {
     justify-content: space-around;
     flex-direction: column;
@@ -31,6 +32,7 @@ body {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin-bottom: 50px;
 }
+
 
 /* MAIN SECTION OF CALCULATOR MADE UP OF SCREEN AND MAIN*/
 .screen,
@@ -73,8 +75,8 @@ body {
     border-radius: 10px;
 }
 
-/* CLEAR AND DELETE BUTTONS */
 
+/* CLEAR AND DELETE BUTTONS */
 .clr-dlt {
     justify-content: space-between;
     margin-bottom: 8px;
@@ -86,28 +88,19 @@ body {
     width: 110px;
     height: 100%;
     border: none;
-    font-weight: 300;
+    font-weight: 800;
     border-radius: 5px;
+    color: white;
 }
 
-.clear {
-    background-color: orange;
-}
+.clear {background-color: orange;}
+.clear:hover {background-color: rgb(255, 216, 144);}
 
-.clear:hover {
-    background-color: rgb(255, 216, 144);
-}
+.delete {background-color: red;}
+.delete:hover {background-color: rgb(255, 91, 91);}
 
-.delete {
-    background-color: red;
-}
-
-.delete:hover {
-    background-color: rgb(255, 91, 91);
-}
 
 /* BUTTONS */
-
 .button-container {
     display: flex;
     justify-content: space-between;
@@ -123,16 +116,22 @@ body {
     border-radius: 5px;
     border: none;
     font-size: 20px;
-    font-weight: 300;
-    margin-top: 10px
+    font-weight: 900;
+    margin-top: 10px;
+    color: whitesmoke;
+    background-color: rgb(82, 82, 82);
 }
+.button-container button:hover {background-color: rgb(44, 44, 44);}
 
-.button-container button:hover {
-    background-color: rgb(217, 217, 217);
+/* ADDED BUTTON STYLES TO OPERATORS */
+#operator {
+    background-color: rgb(255, 213, 0);
+    color: white;
 }
+#operator:hover {background-color: rgb(199, 166, 0);}
 
-/* FIX THIS */
 
+/* FOOTER */
 footer {
     text-align: center;
     width: 100vw;

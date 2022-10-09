@@ -29,10 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "-" : (a, b) => a - b
     };
 
-    let fNum = ""
-    let sNum = ""
-    let currentOp = ""
+    let fNum = "";
+    let sNum = "";
+    let currentOp = "";
     let canDel = true;
+    const letterOverflow = 15;
 
     function setAttributes(elem, obj) {
         for (item in obj) {
@@ -42,10 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function makeNumbers() {
         for (let i = 0; i < types.length; i++) {
-            let button = document.createElement("button")
-            setAttributes(button, {"class": "numButton", "id" : `${String(types[i])}`})
-            button.textContent = types[i]
-            buttonContainer.appendChild(button)
+            let button = document.createElement("button");
+            if (isNaN(types[i]) && types[i] != ".") {
+                setAttributes(button, {"class": "numButton", "id" : "operator"})
+            } else {
+                setAttributes(button, {"class": "numButton", "id" : `${String(types[i])}`});
+            }
+            button.textContent = types[i];
+            buttonContainer.appendChild(button);
         }
         return document.querySelectorAll(".numButton")
     }  
@@ -82,6 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function pressedNumber(e) {
+        if (fNum.length >= letterOverflow && currentOp === "") {
+            return
+        } 
+        
         // if first number add to bottom
         if (topValue.textContent === "") {
             fNum += e
@@ -97,12 +106,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function setValue(name) {
         let str = ""
         const args = Array.from(arguments).slice(1, arguments.length)
-        let makeStr = args.forEach(i => str += `${i} `)
+        args.forEach(i => str += `${i} `)
         return name.textContent = str
     }
     
     function operate(operator, first, second) {
-        return String(calc[operator](Number(first), Number(second)).toFixed(13))
+        let answer = String(calc[operator](Number(first), Number(second)));
+        let cut = answer.length - letterOverflow;
+        (answer.length > letterOverflow) ? answer = answer.slice(0, -cut) : {};
+        return answer
     }
 
     function clear(e) {
@@ -131,3 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
     }
 })
+
+// function operate(operator, first, second) {
+//     return String(calc[operator](Number(first), Number(second)).toFixed(13))
+// }

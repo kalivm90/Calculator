@@ -1,26 +1,26 @@
-// TODO
 document.addEventListener("DOMContentLoaded", () => {
-    let types = ["7", "8", "9", "/", "4", "5", "6", "x", "1", "2", "3", "-", ".", "0", "=", "+"]
-    let operations = types.filter(i => (isNaN(i) && i != ".") ? true : false)
+    let types = ["7", "8", "9", "/", "4", "5", "6", "x", "1", "2", "3", "-", ".", "0", "=", "+"];
+    let operations = types.filter(i => (isNaN(i) && i != ".") ? true : false);
 
     // SCREEN VALUES
-    let screen = document.querySelector(".screen")
+    let screen = document.querySelector(".screen");
     let bottomValue = screen.querySelector(".bottom-value");
     let topValue = screen.querySelector(".top-value");
     // TOP BUTTONS
-    let clr = document.querySelector(".clear")
-    let dlt = document.querySelector(".delete")
+    let clr = document.querySelector(".clear");
+    let dlt = document.querySelector(".delete");
     // NUMBER AND OPERATOR BUTTONS
     let buttonContainer = document.querySelector(".button-container");
-    let buttons = makeNumbers()
+    let buttons = makeNumbers();
     // FOOTER
-    let footerIcon = document.querySelector("#footer-link")
+    let footerIcon = document.querySelector("#footer-link");
 
     // Events
-    buttons.forEach(but => but.onclick = e => updateCalc(but.textContent))
+    buttons.forEach(but => but.onclick = e => updateCalc(but.textContent));
     clr.onclick = e => clear(e);
     dlt.onclick = e => del(e);
     footerIcon.onclick = e => window.location = "https://github.com/kalivm90";
+    window.onkeydown = e => keystrokes(e);
 
     const calc = {
         "+" : (a, b) => a + b,
@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const letterOverflow = 15;
 
     function setAttributes(elem, obj) {
-        for (item in obj) {
-            elem.setAttribute(item, obj[item])
+        for (var item in obj) {
+            elem.setAttribute(item, obj[item]);
         }
     }
 
@@ -45,14 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < types.length; i++) {
             let button = document.createElement("button");
             if (isNaN(types[i]) && types[i] != ".") {
-                setAttributes(button, {"class": "numButton", "id" : "operator"})
+                setAttributes(button, {"class": "numButton", "id" : "operator"});
             } else {
                 setAttributes(button, {"class": "numButton", "id" : `${String(types[i])}`});
             }
             button.textContent = types[i];
             buttonContainer.appendChild(button);
         }
-        return document.querySelectorAll(".numButton")
+        return document.querySelectorAll(".numButton");
     }  
 
     function updateCalc(e) {
@@ -64,57 +64,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function pressedOperator(e) {
         if (bottomValue.textContent === "0") {
-            return
+            return;
         // if its the first operator pressed set current operator and update top value of calculator
         } else if (currentOp === "") {
-            currentOp = e
-            setValue(topValue, fNum, currentOp)
+            currentOp = e;
+            setValue(topValue, fNum, currentOp);
         // if equals is pressed 
         } else if (e === "=") {
-            setValue(topValue, fNum, currentOp, sNum, e)
-            setValue(bottomValue, operate(currentOp, fNum, sNum))
-            canDel = false
+            setValue(topValue, fNum, currentOp, sNum, e);
+            setValue(bottomValue, operate(currentOp, fNum, sNum));
+            canDel = false;
         // if its the second make calculation with old operator and set currentOperator with e
         } else {
-            let calcNum = operate(currentOp, fNum, sNum)
-            currentOp = e 
-            fNum = calcNum
-            sNum = ""
-            setValue(topValue, calcNum, currentOp)
-            setValue(bottomValue, fNum)
-            canDel = false
+            let calcNum = operate(currentOp, fNum, sNum);
+            currentOp = e;
+            fNum = calcNum;
+            sNum = "";
+            setValue(topValue, calcNum, currentOp);
+            setValue(bottomValue, fNum);
+            canDel = false;
         }
     }
 
     function pressedNumber(e) {
         if (fNum.length >= letterOverflow && currentOp === "") {
-            return
+            return;
         } 
-        
+
         // if first number add to bottom
         if (topValue.textContent === "") {
-            fNum += e
-            setValue(bottomValue, fNum)
+            fNum += e;
+            setValue(bottomValue, fNum);
         // if operator has been pressed write second num on bottom
         } else if (currentOp != "") {
-            sNum += e
-            setValue(bottomValue, sNum)
-            canDel = true
+            sNum += e;
+            setValue(bottomValue, sNum);
+            canDel = true;
         }
     }
 
     function setValue(name) {
-        let str = ""
-        const args = Array.from(arguments).slice(1, arguments.length)
-        args.forEach(i => str += `${i} `)
-        return name.textContent = str
+        let str = "";
+        const args = Array.from(arguments).slice(1, arguments.length);
+        args.forEach(i => str += `${i} `);
+        name.textContent = str;
+        return;
     }
     
     function operate(operator, first, second) {
         let answer = String(calc[operator](Number(first), Number(second)));
         let cut = answer.length - letterOverflow;
         (answer.length > letterOverflow) ? answer = answer.slice(0, -cut) : {};
-        return answer
+        return answer;
     }
 
     function clear(e) {
@@ -122,28 +123,33 @@ document.addEventListener("DOMContentLoaded", () => {
         fNum = sNum = currentOp = "";
         canDel = true;
         // setValue breaks the calculator if used here, and I am not sure why. So in the meantime I am setting them manually
-        topValue.textContent = ""
-        bottomValue.textContent = "0"
+        topValue.textContent = "";
+        bottomValue.textContent = "0";
     }
 
     function del(e) {
         // if no numbers are selected and operator is pressed or the answer is currently displayed on the screen
         if (bottomValue.textContent === "0" && fNum === "" || !canDel) {
-            e.target.textContent = "Enter Number"
-            setTimeout(() => e.target.textContent = "Delete", 900)
-            return 
+            e.target.textContent = "Enter Number";
+            setTimeout(() => e.target.textContent = "Delete", 900);
+            return;
         } else if (sNum === "") {
-            fNum = fNum.slice(0, -1)
-            bottomValue.textContent = fNum
+            fNum = fNum.slice(0, -1);
+            bottomValue.textContent = fNum;
         } else if (fNum != "" && currentOp != "" && sNum === ""){
-            return
+            return;
         } else {
-            sNum = sNum.slice(0, -1)
-            bottomValue.textContent = sNum
+            sNum = sNum.slice(0, -1);
+            bottomValue.textContent = sNum;
         } 
-    }
-})
+    };
 
-// function operate(operator, first, second) {
-//     return String(calc[operator](Number(first), Number(second)).toFixed(13))
-// }
+    function keystrokes(e) {
+        let key = e.key;
+        e.preventDefault();
+        if (key === "/") updateCalc(key);
+        else if (key === "Backspace") clear(key);
+        else if (key === "Delete") del(key);
+        else types.forEach(i => (i === key) ? updateCalc(key) : {});
+    }
+});
